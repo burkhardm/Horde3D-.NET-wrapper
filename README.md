@@ -3,10 +3,6 @@ Horde3D .NET wrapper
 Version: 0.13.0 rc2<br/>
 Release: 4th December 2007<br/>
 
-![alt text](https://github.com/burkhardm/Horde3D-.NET-wrapper/master/screenshots/screenshot01.jpg "Ship X")
-![alt text](https://github.com/burkhardm/Horde3D-.NET-wrapper/master/screenshots/screenshot02.jpg "Knight")
-![alt text](https://github.com/burkhardm/Horde3D-.NET-wrapper/master/screenshots/screenshot03.jpg "Chicago")
-
 About
 --------------------------------------------------------------------------------
 The Horde3D .NET wrapper is a light-weight open source library, implemented in C# 2.0 for [Horde3D](http://www.horde3d.org), a small open source 3D rendering engine.
@@ -14,6 +10,13 @@ The intention is to open the simple and intuitive interface of the next-generati
 
 See the [Horde3D SDK documentation](http://www.horde3d.org/docs/manual.html) for descriptions of all the Horde3D .NET Wrapper functions. 
 You should have a look at the included samples Chicago .NET and Knight.NET for some examples of how to use Horde3D .NET in your own programs.
+
+Screenshots
+--------------------------------------------------------------------------------
+![alt text](https://github.com/burkhardm/Horde3D-.NET-wrapper/blob/master/Screenshots/screenshot01.jpg?raw=true "Ship X")
+![alt text](https://github.com/burkhardm/Horde3D-.NET-wrapper/blob/master/Screenshots/screenshot02.jpg?raw=true "Knight")
+![alt text](https://github.com/burkhardm/Horde3D-.NET-wrapper/blob/master/Screenshots/screenshot03.jpg?raw=true "Chicago")
+
 
 Package
 --------------------------------------------------------------------------------
