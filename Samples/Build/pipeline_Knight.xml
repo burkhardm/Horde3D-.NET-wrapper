@@ -1,0 +1,59 @@
+<Pipeline>
+	<Setup>
+		<RenderTarget id="HDRBUF" depthBuf="true" numColBufs="1" format="RGBA16F" scale="1.0" />
+		<RenderTarget id="BLURBUF1" depthBuf="false" numColBufs="1" format="RGBA8" bilinear="true" scale="0.25" />
+		<RenderTarget id="BLURBUF2" depthBuf="false" numColBufs="1" format="RGBA8" bilinear="true" scale="0.25" />
+	</Setup>
+	
+	<!-- Scene rendering -->
+	<CommandQueue>
+		<Stage id="Ambient">
+			<SwitchTarget target="HDRBUF" />
+			<ClearTarget depthBuf="true" colBuf0="true" />
+			
+			<DrawGeometry context="AMBIENT" class="~Translucent" />
+		</Stage>
+		
+		<Stage id="Lighting">
+			<DoForwardLightLoop class="~Translucent" />
+		</Stage>
+		
+		<Stage id="Translucent">
+			<DrawGeometry context="TRANSLUCENT" class="Translucent" />
+		</Stage>
+		
+		<!-- HDR post processing -->
+		<Stage id="BrightPass">
+			<SwitchTarget target="BLURBUF1" />
+			<BindBuffer shaderIndex="0" target="HDRBUF" bufIndex="0" />
+			<DrawQuad material="postHDR.material.xml" context="BRIGHTPASS" />
+		</Stage>
+		
+		<Stage id="Bloom">
+			<SwitchTarget target="BLURBUF2" />
+			<BindBuffer shaderIndex="0" target="BLURBUF1" bufIndex="0" />
+			<DrawQuad material="postHDR.material.xml" context="BLUR1" />
+			<SwitchTarget target="BLURBUF1" />
+			<BindBuffer shaderIndex="0" target="BLURBUF2" bufIndex="0" />
+			<DrawQuad material="postHDR.material.xml" context="BLUR2" />
+			<SwitchTarget target="BLURBUF2" />
+			<BindBuffer shaderIndex="0" target="BLURBUF1" bufIndex="0" />
+			<DrawQuad material="postHDR.material.xml" context="BLUR3" />
+			<SwitchTarget target="BLURBUF1" />
+			<BindBuffer shaderIndex="0" target="BLURBUF2" bufIndex="0" />
+			<DrawQuad material="postHDR.material.xml" context="BLUR4" />
+		</Stage>
+		
+		<Stage id="Combination">
+			<SwitchTarget target="" />
+			<BindBuffer shaderIndex="0" target="HDRBUF" bufIndex="0" />
+			<BindBuffer shaderIndex="1" target="BLURBUF1" bufIndex="0" />
+			<DrawQuad material="postHDR.material.xml" context="FINALPASS" />
+		</Stage>
+		
+		<!-- Overlays -->
+		<Stage id="Overlays">
+			<DrawOverlays context="OVERLAY" />
+		</Stage>
+	</CommandQueue>
+</Pipeline>

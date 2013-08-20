@@ -1,0 +1,4 @@
+<Model name="scene" geometry="scene.geo">
+
+	<Mesh name="Plane01" material="scene/stones.material.xml" sx="4" sy="4" sz="4" batchStart="0" batchCount="1536" vertRStart="0" vertREnd="288" />
+</Model>

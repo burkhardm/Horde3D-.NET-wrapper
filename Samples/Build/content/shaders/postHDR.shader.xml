@@ -1,0 +1,230 @@
+<Shader>
+	<Context id="BRIGHTPASS">
+		<RenderConfig writeDepth="false" />
+		
+		<VertexShader>
+			<DefCode>
+			<![CDATA[
+				varying vec2 texCoord;
+				
+				void main( void )
+				{
+					texCoord = gl_MultiTexCoord0.st; 
+					gl_Position = gl_ProjectionMatrix * gl_Vertex;
+				}
+			]]>
+			</DefCode>
+		</VertexShader>
+		
+		<FragmentShader>
+			<InsCode code="utilityLib/fragPostProcess.glsl" />
+			<DefCode>
+			<![CDATA[
+				uniform sampler2D buf0;
+				uniform vec2 frameBufSize;
+				uniform vec4 hdrParams;
+				varying vec2 texCoord;
+				
+				void main( void )
+				{
+					vec2 texSize = frameBufSize * 4.0;
+					vec2 coord2 = texCoord + vec2( 2, 2 ) / texSize;
+					
+					// Average using bilinear filtering
+					vec4 sum = getTex2DBilinear( buf0, texCoord, texSize );
+					sum += getTex2DBilinear( buf0, coord2, texSize );
+					sum += getTex2DBilinear( buf0, vec2( coord2.x, texCoord.y ), texSize );
+					sum += getTex2DBilinear( buf0, vec2( texCoord.x, coord2.y ), texSize );
+					sum /= 4.0;
+					
+					// Tonemap
+					sum = 1.0 - exp2( -hdrParams.x * sum );
+					
+					// Extract bright values
+					sum -= hdrParams.y;
+					sum = max( sum, 0.0 );
+					sum /= hdrParams.z + sum;
+					
+					gl_FragColor = sum;
+				}
+			]]>
+			</DefCode>
+		</FragmentShader>
+	</Context>
+	
+	<Context id="BLUR1">
+		<RenderConfig writeDepth="false" />
+		
+		<VertexShader>
+			<DefCode>
+			<![CDATA[
+				varying vec2 texCoord;
+				
+				void main( void )
+				{
+					texCoord = gl_MultiTexCoord0.st; 
+					gl_Position = gl_ProjectionMatrix * gl_Vertex;
+				}
+			]]>
+			</DefCode>
+		</VertexShader>
+		
+		<FragmentShader>
+			<InsCode code="utilityLib/fragPostProcess.glsl" />
+			<DefCode>
+			<![CDATA[
+				uniform sampler2D buf0;
+				uniform vec2 frameBufSize;
+				varying vec2 texCoord;
+				
+				void main( void )
+				{
+					gl_FragColor = blurKawase( buf0, texCoord, frameBufSize, 0.0 );
+				}
+			]]>
+			</DefCode>
+		</FragmentShader>
+	</Context>
+	
+	<Context id="BLUR2">
+		<RenderConfig writeDepth="false" />
+		
+		<VertexShader>
+			<DefCode>
+			<![CDATA[
+				varying vec2 texCoord;
+				
+				void main( void )
+				{
+					texCoord = gl_MultiTexCoord0.st; 
+					gl_Position = gl_ProjectionMatrix * gl_Vertex;
+				}
+			]]>
+			</DefCode>
+		</VertexShader>
+		
+		<FragmentShader>
+			<InsCode code="utilityLib/fragPostProcess.glsl" />
+			<DefCode>
+			<![CDATA[
+				uniform sampler2D buf0;
+				uniform vec2 frameBufSize;
+				varying vec2 texCoord;
+				
+				void main( void )
+				{
+					gl_FragColor = blurKawase( buf0, texCoord, frameBufSize, 1.0 );
+				}
+			]]>
+			</DefCode>
+		</FragmentShader>
+	</Context>
+	
+	<Context id="BLUR3">
+		<RenderConfig writeDepth="false" />
+		
+		<VertexShader>
+			<DefCode>
+			<![CDATA[
+				varying vec2 texCoord;
+				
+				void main( void )
+				{
+					texCoord = gl_MultiTexCoord0.st; 
+					gl_Position = gl_ProjectionMatrix * gl_Vertex;
+				}
+			]]>
+			</DefCode>
+		</VertexShader>
+		
+		<FragmentShader>
+			<InsCode code="utilityLib/fragPostProcess.glsl" />
+			<DefCode>
+			<![CDATA[
+				uniform sampler2D buf0;
+				uniform vec2 frameBufSize;
+				varying vec2 texCoord;
+				
+				void main( void )
+				{
+					gl_FragColor = blurKawase( buf0, texCoord, frameBufSize, 2.0 );
+				}
+			]]>
+			</DefCode>
+		</FragmentShader>
+	</Context>
+	
+	<Context id="BLUR4">
+		<RenderConfig writeDepth="false" />
+		
+		<VertexShader>
+			<DefCode>
+			<![CDATA[
+				varying vec2 texCoord;
+				
+				void main( void )
+				{
+					texCoord = gl_MultiTexCoord0.st; 
+					gl_Position = gl_ProjectionMatrix * gl_Vertex;
+				}
+			]]>
+			</DefCode>
+		</VertexShader>
+		
+		<FragmentShader>
+			<InsCode code="utilityLib/fragPostProcess.glsl" />
+			<DefCode>
+			<![CDATA[
+				uniform sampler2D buf0;
+				uniform vec2 frameBufSize;
+				varying vec2 texCoord;
+				
+				void main( void )
+				{
+					gl_FragColor = blurKawase( buf0, texCoord, frameBufSize, 3.0 );
+				}
+			]]>
+			</DefCode>
+		</FragmentShader>
+	</Context>
+	
+	<Context id="FINALPASS">
+		<RenderConfig writeDepth="false" />
+		
+		<VertexShader>
+			<DefCode>
+			<![CDATA[
+				varying vec2 texCoord;
+				
+				void main( void )
+				{
+					texCoord = gl_MultiTexCoord0.st; 
+					gl_Position = gl_ProjectionMatrix * gl_Vertex;
+				}
+			]]>
+			</DefCode>
+		</VertexShader>
+		
+		<FragmentShader>
+			<DefCode>
+			<![CDATA[
+				uniform sampler2D buf0, buf1;
+				uniform vec2 frameBufSize;
+				uniform vec4 hdrParams;
+				varying vec2 texCoord;
+				
+				void main( void )
+				{
+					vec4 col0 = texture2D( buf0, texCoord );
+					vec4 col1 = texture2D( buf1, texCoord );
+					
+					// Tonemap
+					vec4 col = 1.0 - exp2( -hdrParams.x * col0 );
+					
+					gl_FragColor = col + col1;
+				}
+			]]>
+			</DefCode>
+		</FragmentShader>
+	</Context>
+</Shader>
