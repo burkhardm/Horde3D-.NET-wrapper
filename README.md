@@ -18,9 +18,10 @@ Screenshots
 ![alt text](https://github.com/burkhardm/Horde3D-.NET-wrapper/blob/master/Screenshots/screenshot03.jpg?raw=true "Chicago")
 
 
-Package
+Accompanying materials
 --------------------------------------------------------------------------------
-Includes Horde3D SDK binaries Version 0.13.0 - [http://www.horde3d.org](http://www.horde3d.org) - Copyright (C) 2006-2011 Nicolas Schulz
+ * Horde3D SDK, Version 0.13.0, [http://www.horde3d.org](http://www.horde3d.org), Copyright (C) 2006-2011 Nicolas Schulz
+ * 3D Models, [http://robg3d.com/downloads.html](http://robg3d.com/downloads.html), Copyright (C) 2011 Rob Galanakis
 
 Requirements
 --------------------------------------------------------------------------------
@@ -29,10 +30,18 @@ Horde3D requires an OpenGL 2.0 compatible graphics card with the **latest driver
 Acknowledgments
 --------------------------------------------------------------------------------
 Special thanks to Nicolas Schulz for his outstanding efforts, dedication and inspiration. Many thanks to [Rob Galanakis](http://robg3d.com/downloads.html) for publishing his extraordinary 3d models and animations under the [Creative Commons Attribution-Noncommercial 3.0 License](http://creativecommons.org/licenses/by-nc/3.0/).
-
-Special attributions
+ 
+License
 --------------------------------------------------------------------------------
-The listed trademarks of the following companies require marking and attribution:
+This program and the accompanying materials are made available under the terms of the GNU Lesser General Public License which accompanies this distribution, and is available at []().
+
+Copyright
+--------------------------------------------------------------------------------
+(C) 2006-2011 Martin Burkhard and Nicolas Schulz.
+
+Trademarks
+--------------------------------------------------------------------------------
+The listed trademarks of the following companies require marking and attribution:<br/>
  * Microsoft, Windows, Windows NT, Windows XP, Windows Vista and the Windows logo are trademarks of Microsoft Corporation in the United States, other countries, or both.
  * Intel, Intel logo, Intel Inside, Intel Inside logo, Intel Centrino, Intel Centrino logo, Celeron, Intel Xeon, Intel SpeedStep, Itanium, and Pentium are trademarks or registered trademarks of Intel Corporation or its subsidiaries in the United States and other countries.
  * NVIDIA, the NVIDIA logo, NVIDIA nForce, GeForce, NV, are registered trademarks or trademarks of NVIDIA Corporation in the United States and/or other countries. 
@@ -43,3 +52,5 @@ The listed trademarks of the following companies require marking and attribution
  * UNIX is a registered trademark of The Open Group in the United States and other countries.
  * Linux is a registered trademark of Linus Torvalds in the United States, other countries, or both.
  * Other company and product names may be trademarks or registered trademarks of the respective owners with which they are associated.
+
+
